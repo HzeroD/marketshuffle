@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/stock-index.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="page-header">
+  <h1>Stock List</h1>
+  
+</section>
+
+<section class='card-container'>
+  {% for stock in stocks %}
+    <div class="card">
+      <a href="{% url 'stocks_detail' stock.id %}">
+        <div class="card-content">
+          <div class="card-img-container">
+            {% if stock.photo.url %}
+              <img 
+                src="{{stock.photo.url}}" 
+                alt="A photo of {{stock.name}}"
+                class="usr-img"
+              >
+            {% else %}
+              <img 
+                src="{% static 'images/wallstreet_bull.jpeg' %}" 
+                alt="wallstreet bull"
+              >
+            {% endif %}
+          </div>
+          <h2 class="card-title">{{ stock.name }}</h2>
+          {% comment %} {% if stock.age > 0 %} {% endcomment %}
+            <p>ticker: {{stock.ticker}}</p>
+          {% comment %} {% else %} {% endcomment %}
+            <p>purchase price: {{stock.purchase_price}}</p>
+          {% comment %} {% endif %} {% endcomment %}
+          <p>volume: {{stock.volume}}</p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+
+</section>
+
+{% endblock %}

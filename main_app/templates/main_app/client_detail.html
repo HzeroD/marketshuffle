@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/client-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+  
+<div class="card" style="border-color: {{ client.color }}">
+  <div class="card-bg" style="background-color: {{ client.color }}"></div>
+  <div class="card-content">
+    <h2>{{ client.name }}</h2>
+    <p>{{client.name}}'s Worth: {{ client.worth }} </p>
+  </div>
+</div>
+<a href="{% url 'clients_update' client.id %}" class="btn warn">Edit</a>
+<a href="{% url 'clients_delete' client.id %}" class="btn danger">Delete</a>
+
+{% endblock %}

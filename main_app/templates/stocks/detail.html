@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% comment %} <link 
+  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
+  rel="stylesheet" 
+/>
+<script 
+  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
+> {% endcomment %}
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- XDSoft DateTimePicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+
+<script defer src="{% static 'js/stock-detail.js' %}"></script>
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{% static 'css/stock-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="stock-container">
+  <div class="stock-img">
+    {% if stock.photo.url %}
+      <img 
+        src="{{stock.photo.url}}" 
+        alt="A photo of {{stock.name}}"
+        class="usr-img"
+      >
+    {% else %}
+      <img 
+        src="" 
+        alt=""
+      >
+    {% endif %}
+  </div>
+  <div class="stock-details">
+    <h1>{{ stock.name }}</h1>
+    
+      <h2>Ticker: {{stock.ticker}}</h2>
+    
+      <h2>Purchase Price: {{stock.purchase_price}}</h2>
+
+      <h2>Volume: {{stock.volume}}
+    
+    
+    <div class="stock-actions">
+      <a href="{% url 'stocks_update' stock.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'stocks_delete' stock.id %}" class="btn danger">Delete</a>
+    </div>
+    {% comment %}
+    <h3>Change {{ stock.name }}'s photo</h3>
+    <p id="file-name"></p>
+    <form 
+      action="{% url 'add_photo' stock.id %}"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      {% csrf_token %}
+      <label class="btn secondary">
+        Choose photo
+        <input type="file" name="photo-file" id="file-input">
+      </label>
+      <button type="submit" class="btn submit">Upload Photo</button>
+    </form>
+    {% endcomment %}
+  </div>
+</section>
+
+<div class="orders-client-container">
+  <section class="orders">
+    <div class="subsection-title">
+      <h2>ORDERS</h2>
+      
+    </div>
+    <h3>Add an order:</h3>
+    <form
+      action="{% url 'add_order' stock.id %}"
+      method='post'
+      class='subsection-content'
+      autocomplete='off'
+      
+    >
+      {% comment %} {% if stock.fed_for_today %}
+        <p class="fed">{{stock.name}} has been fed all their meals for today!</p>
+      {% else %}
+        <p class="unfed">{{stock.name}} might be hungry!</p>
+      {% endif %} {% endcomment %}
+      {% csrf_token %}
+      <input id="datetimepicker">
+      {{ order_form }}
+  </input>
+      <button type="submit" class='btn submit'>Add order</button>
+    </form>
+    {% comment %}
+    <h3>Past orders</h3>
+    {% if stock.order_set.all.count %}
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Meal</th></tr>
+      </thead>
+      <tbody>
+        {% for order in stock.order_set.all %}
+          <tr>
+            <td>{{order.date}}</td>
+            <td>{{order.get_meal_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h3 class="subsection-content">{{stock.name}} has never been fed 😟🐱😟</h3>
+    {% endif %}
+  </section>
+  <section class="clients">
+    <div class="subsection-title">
+      <h2>clients</h2>
+      <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
+      <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
+      <img src="{% static 'images/fish.svg' %}" alt="A fishy client" />
+    </div>
+    <h3>{{ stock.name }}'s clients</h3>
+    <div class="subsection-content">
+      {% if stock.clients.count %}
+        {% for client in stock.clients.all %}
+          <div class="client-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ client.color }}"
+            ></div>
+            <a href="{% url 'clients_detail' client.id %}">
+              <p>A {{ client.color }} {{ client.name }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-clients">{{stock.name}} doesn't have any clients 😞</p>
+      {% endif %}
+    </div>
+    <h3>Available clients</h3>
+    <div class="subsection-content">
+      {% if clients.count %}
+        {% for client in clients.all %}
+        <div class="client-container">
+          <div 
+            class="color-block"
+            style="background-color: {{ client.color }}"
+          ></div>
+          <a href="{% url 'clients_detail' client.id %}">
+            <p>A {{ client.color }} {{ client.name }}</p>
+          </a>
+          <form action="{% url 'assoc_client' stock.id client.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn submit">Give client</button>
+          </form>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-clients">
+          {{stock.name}} already has all the available clients 🥳
+        </p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+{% endcomment %}
+
+{% endblock %}

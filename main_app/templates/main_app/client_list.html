@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/client-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>All MarketShuffle Clients</h1>
+  {% comment %}
+  <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
+  <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
+  <img src="{% static 'images/post.svg' %}" alt="A scratching post" />
+  <img src="{% static 'images/fish.svg' %}" alt="A fishy client" />
+  {% endcomment %}
+</section>
+
+<section class="card-container">
+  {% for client in client_list %}
+  <div class="card" style="border-color: {{ client.color }}">
+    <div class="card-bg" style="background-color: {{ client.color }}"></div>
+    <a href="{% url 'clients_detail' client.id %}">
+      <div class="card-content">
+        <h2>{{ client.name }}</h2>
+        <p>Worth: {{ client.worth }} </p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

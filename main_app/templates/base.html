@@ -9,10 +9,10 @@
   <link
     rel="shortcut icon"
     type="image/png"
-    href="{% static 'images/splash.svg' %}"
+    href="{% static 'images/favicon.webp' %}"
   >
   <link rel="stylesheet" type='text/css' href="{% static 'css/base.css' %}">
-  <title>Cat Collector</title>
+  <title>MarketShuffle</title>
   {% block head %}
   {% endblock %}
 </head>
@@ -21,19 +21,20 @@
     <div class="header-logo-container">
       <a href="/">
         <img 
-          src="{% static 'images/header-logo.svg' %}" 
+          src="" 
           alt="The Cat Collector Logo"
         >
       </a>
     </div>
     <nav>
       <ul>
+        
         {% if user.is_authenticated %}
-          <li><a href="{% url 'cats_index' %}">All Cats</a></li>
-          <li><a href="{% url 'toys_index' %}">All Toys</a></li>
-          <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>
-          <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'stocks_index' %}">All Stocks</a></li>
+          <li><a href="{% url 'clients_index' %}">All Clients</a></li>
+          
+          <li><a href="{% url 'stocks_create' %}">Add a Stock</a></li>
+          <li><a href="{% url 'clients_create' %}">Add a Client</a></li>
           <li><a href="{% url 'logout' %}">Log out</a></li>
         {% else %}
           <li><a href="{% url 'about' %}">About</a></li>
