@@ -2,13 +2,6 @@
 {% load static %}
 
 {% block head %}
-{% comment %} <link 
-  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
-  rel="stylesheet" 
-/>
-<script 
-  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
-> {% endcomment %}
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -88,39 +81,35 @@
       method='post'
       class='subsection-content'
       autocomplete='off'
-      
     >
-      {% comment %} {% if stock.fed_for_today %}
-        <p class="fed">{{stock.name}} has been fed all their meals for today!</p>
-      {% else %}
-        <p class="unfed">{{stock.name}} might be hungry!</p>
-      {% endif %} {% endcomment %}
       {% csrf_token %}
-      <input id="datetimepicker">
-      {{ order_form }}
-  </input>
+      
+      {{order_form.date}}
+    
+      {{order_form.qty}}
       <button type="submit" class='btn submit'>Add order</button>
     </form>
-    {% comment %}
-    <h3>Past orders</h3>
+    
+    <h3>Orders Placed</h3>
     {% if stock.order_set.all.count %}
     <table>
       <thead>
-        <tr><th>Date</th><th>Meal</th></tr>
+        <tr><th>Date</th><th>Quantity</th></tr>
       </thead>
       <tbody>
         {% for order in stock.order_set.all %}
           <tr>
             <td>{{order.date}}</td>
-            <td>{{order.get_meal_display}}</td>
+            <td>{{order.qty}}</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
     {% else %}
-    <h3 class="subsection-content">{{stock.name}} has never been fed 😟🐱😟</h3>
+    <h3 class="subsection-content">{{stock.name}} has no orders pending</h3>
     {% endif %}
   </section>
+  {%comment%}
   <section class="clients">
     <div class="subsection-title">
       <h2>clients</h2>
@@ -133,12 +122,9 @@
       {% if stock.clients.count %}
         {% for client in stock.clients.all %}
           <div class="client-container">
-            <div 
-              class="color-block"
-              style="background-color: {{ client.color }}"
-            ></div>
+          
             <a href="{% url 'clients_detail' client.id %}">
-              <p>A {{ client.color }} {{ client.name }}</p>
+              <p>A {{ client.worth }} {{ client.name }}</p>
             </a>
           </div>
         {% endfor %}

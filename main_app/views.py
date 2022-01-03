@@ -44,8 +44,8 @@ def stocks_index(request):
 def stocks_detail(request, stock_id):
   stock = Stock.objects.get(id=stock_id)
   #toys_stock_doesnt_have = Toy.objects.exclude(id__in = stock.toys.all().values_list('id'))
-  #order_form = orderForm()
-  return render(request, 'stocks/detail.html', { 'stock': stock})
+  order_form = OrderForm()
+  return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form})
 
 class StockCreate(CreateView):
   model = Stock
@@ -57,11 +57,16 @@ class StockCreate(CreateView):
 
 @login_required
 def add_order(request, stock_id):
+  print("ADD_ORDERRR")
   form = OrderForm(request.POST)
+  print("FORM__ADDORDER",form)
   if form.is_valid():
+    print("INSIDE IF BLOCK ADD_ORDER")
     new_order = form.save(commit=False)
     new_order.stock_id = stock_id
     new_order.save()
+    print("ORDER SAVED")
+  print("RETURNING FROM ORDER_ADD")
   return redirect('stocks_detail', stock_id=stock_id)
 
 class StockUpdate(UpdateView):

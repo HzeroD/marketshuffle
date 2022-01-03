@@ -29,7 +29,9 @@ class Stock(models.Model):
         return reverse("stocks_detail", kwargs={"stock_id": self.id})
 
 class Order(models.Model):
-    date = models.DateTimeField('Sell Date/Time')
-    qty = models.IntegerField()
+    date = models.DateTimeField()
+    qty = models.IntegerField(default=1)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.date} on {self.qty}"
