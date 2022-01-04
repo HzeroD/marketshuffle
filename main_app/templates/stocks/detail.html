@@ -102,12 +102,13 @@
     {% if stock.order_set.all.count %}
     <table>
       <thead>
-        <tr><th>Date</th><th>Quantity</th></tr>
+        <tr><th>Date</th><th>Time</th><th>Quantity</th></tr>
       </thead>
       <tbody>
         {% for order in stock.order_set.all %}
           <tr>
             <td>{{order.date}}</td>
+            <td>{{order.time}}</td>
             <td>{{order.qty}}</td>
           </tr>
         {% endfor %}
