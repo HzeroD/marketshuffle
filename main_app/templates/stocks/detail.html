@@ -117,14 +117,16 @@
     <h3 class="subsection-content">{{stock.name}} has no orders pending</h3>
     {% endif %}
   </section>
-  {%comment%}
+  
   <section class="clients">
+    {%comment%}
     <div class="subsection-title">
       <h2>clients</h2>
       <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
       <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
       <img src="{% static 'images/fish.svg' %}" alt="A fishy client" />
     </div>
+    {%endcomment%}
     <h3>{{ stock.name }}'s clients</h3>
     <div class="subsection-content">
       {% if stock.clients.count %}
@@ -137,7 +139,7 @@
           </div>
         {% endfor %}
       {% else %}
-        <p class="no-clients">{{stock.name}} doesn't have any clients 😞</p>
+        <p class="no-clients">{{stock.name}} doesn't have any clients</p>
       {% endif %}
     </div>
     <h3>Available clients</h3>
@@ -147,25 +149,25 @@
         <div class="client-container">
           <div 
             class="color-block"
-            style="background-color: {{ client.color }}"
+            style=""
           ></div>
           <a href="{% url 'clients_detail' client.id %}">
-            <p>A {{ client.color }} {{ client.name }}</p>
+            <p>A {{ client.name }}</p>
           </a>
           <form action="{% url 'assoc_client' stock.id client.id %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn submit">Give client</button>
+            <button type="submit" class="btn submit">Assign client</button>
           </form>
         </div>
         {% endfor %}
       {% else %}
         <p class="all-clients">
-          {{stock.name}} already has all the available clients 🥳
+          {{stock.name}} has all available clients
         </p>
       {% endif %}
     </div>
   </section>
 </div>
-{% endcomment %}
+
 
 {% endblock %}

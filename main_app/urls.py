@@ -17,6 +17,7 @@ path('clients/<int:pk>/update/',views.ClientUpdate.as_view(),name='clients_updat
 path('clients/',views.ClientList.as_view(), name='clients_index'),
 path('clients/<int:pk>/delete',views.ClientDelete.as_view(),name='clients_delete'),
 path('clients/<int:pk>',views.ClientDetail.as_view(), name='clients_detail'),
+path('stocks/<int:stock_id>/assoc_client/<int:client_id>/', views.assoc_client, name='assoc_client'),
 path('accounts/signup/', views.signup, name='signup'),
 
 ]

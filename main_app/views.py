@@ -43,9 +43,9 @@ def stocks_index(request):
 @login_required
 def stocks_detail(request, stock_id):
   stock = Stock.objects.get(id=stock_id)
-  #toys_stock_doesnt_have = Toy.objects.exclude(id__in = stock.toys.all().values_list('id'))
+  clients_stock_doesnt_have = Client.objects.exclude(id__in = stock.clients.all().values_list('id'))
   order_form = OrderForm()
-  return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form})
+  return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form, 'clients': clients_stock_doesnt_have})
 
 class StockCreate(CreateView):
   model = Stock
@@ -67,6 +67,11 @@ def add_order(request, stock_id):
     new_order.save()
     print("ORDER SAVED")
   print("RETURNING FROM ORDER_ADD")
+  return redirect('stocks_detail', stock_id=stock_id)
+
+def assoc_client(request, stock_id, client_id):
+  # Note that you can pass a client's id instead of the whole object
+  Stock.objects.get(id=stock_id).clients.add(client_id)
   return redirect('stocks_detail', stock_id=stock_id)
 
 class StockUpdate(UpdateView):
