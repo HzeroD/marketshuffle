@@ -75,6 +75,7 @@ class StockUpdate(UpdateView):
 
 class StockDelete(DeleteView):
   model = Stock
+  success_url = '/stocks/'
 
 
 class ClientList(ListView):

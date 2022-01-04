@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+import datetime
+from django.utils import timezone
+
 
 # Import the User
 from django.contrib.auth.models import User
@@ -29,7 +32,8 @@ class Stock(models.Model):
         return reverse("stocks_detail", kwargs={"stock_id": self.id})
 
 class Order(models.Model):
-    date = models.DateTimeField()
+    date = models.DateField('Sell Date')
+    time = models.TimeField()
     qty = models.IntegerField(default=1)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
