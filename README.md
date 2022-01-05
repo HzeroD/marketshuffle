@@ -22,6 +22,7 @@ Here's the Entity Relationship Diagram:
 
 ## App Images
 ![image](main_app/static/images/login.jpg)
+<br />
 ![image](main_app/static/images/details.jpg)
 
 
