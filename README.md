@@ -20,6 +20,10 @@ Check out the app: [MarketShuffle](https://marketshuffle.herokuapp.com/)
 Here's the Entity Relationship Diagram:
 ![image](main_app/static/images/ERDmarketshuffle.png)
 
+## App Images
+![image](main_app/static/images/login.jpg)
+![image](main_app/static/images/details.jpg)
+
 
 ### Languages and Technologies Used
 Python, Django, PostgreSQL DTL, CSS
