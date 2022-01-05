@@ -47,11 +47,11 @@ def stocks_index(request):
 def stocks_detail(request, stock_id):
   total_q = 0
   stock = Stock.objects.get(id=stock_id)
+  ##neat
   order_pending = stock.order_set.filter(Q(date__gt=datetime.datetime.now().date()),
         Q(time__gte=datetime.datetime.now().time()) | Q(date__gt=datetime.datetime.now().date())).order_by('-date')
+  ##neat
   clients_stock_doesnt_have = Client.objects.exclude(id__in = stock.clients.all().values_list('id'))
-  
-
   order_form = OrderForm()
   return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form, 'clients': clients_stock_doesnt_have,'order_pending':order_pending})
 

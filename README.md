@@ -15,6 +15,11 @@ The application is very much a work in progress, and is intended to eventually i
 
 ### App Link
 
-[MarketShuffle](https://marketshuffle.herokuapp.com/)
+Check out the app: [MarketShuffle](https://marketshuffle.herokuapp.com/)
 
+Here's the Entity Relationship Diagram:
 ![image](main_app/static/images/ERDmarketshuffle.png)
+
+
+### Languages and Technologies Used
+Python, Django, PostgreSQL DTL, CSS
