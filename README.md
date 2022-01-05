@@ -17,4 +17,4 @@ The application is very much a work in progress, and is intended to eventually i
 
 [MarketShuffle](https://marketshuffle.herokuapp.com/)
 
-<blockquote class="trello-card"><a href="https:&#x2F;&#x2F;trello.com&#x2F;c&#x2F;CYMBPQ6j&#x2F;2-erd">erd</a></blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>
+![image](main_app/static/images/ERDmarketshuffle.png)
