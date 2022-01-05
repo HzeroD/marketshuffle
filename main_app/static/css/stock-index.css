@@ -1,5 +1,5 @@
 .card-container {
-  padding: 0 30px;
+  padding:  30px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -18,7 +18,7 @@
 }
 
 .usr-img {
-  width: 100%;
+  width: 450px;
   border-radius: var(--card-border-radius);
 }
 

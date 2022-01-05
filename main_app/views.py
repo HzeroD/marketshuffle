@@ -10,6 +10,9 @@ from django.urls import reverse
 from .models import Stock, Client, Order
 from django.views.generic import ListView, DetailView
 from .forms import OrderForm
+from django.db.models import Q
+from datetime import date,time
+import datetime
 # from .forms import orderForm
 import uuid 
 import boto3
@@ -42,14 +45,19 @@ def stocks_index(request):
 
 @login_required
 def stocks_detail(request, stock_id):
+  total_q = 0
   stock = Stock.objects.get(id=stock_id)
+  order_pending = stock.order_set.filter(Q(date__gt=datetime.datetime.now().date()),
+        Q(time__gte=datetime.datetime.now().time()) | Q(date__gt=datetime.datetime.now().date())).order_by('-date')
   clients_stock_doesnt_have = Client.objects.exclude(id__in = stock.clients.all().values_list('id'))
-  order_form = OrderForm()
-  return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form, 'clients': clients_stock_doesnt_have})
+  
 
-class StockCreate(CreateView):
+  order_form = OrderForm()
+  return render(request, 'stocks/detail.html', { 'stock': stock, 'order_form': order_form, 'clients': clients_stock_doesnt_have,'order_pending':order_pending})
+
+class StockCreate(LoginRequiredMixin,CreateView):
   model = Stock
-  fields = ['name','ticker','purchase_price','volume']
+  fields = ['name','ticker','purchase_price','market_cap']
 
   def form_valid(self, form):
     form.instance.user = self.request.user
@@ -74,30 +82,30 @@ def assoc_client(request, stock_id, client_id):
   Stock.objects.get(id=stock_id).clients.add(client_id)
   return redirect('stocks_detail', stock_id=stock_id)
 
-class StockUpdate(UpdateView):
+class StockUpdate(LoginRequiredMixin,UpdateView):
   model = Stock
   fields = ['name', 'ticker','purchase_price','volume']
 
-class StockDelete(DeleteView):
+class StockDelete(LoginRequiredMixin,DeleteView):
   model = Stock
   success_url = '/stocks/'
 
 
-class ClientList(ListView):
+class ClientList(LoginRequiredMixin,ListView):
   model = Client
 
-class ClientDetail(DetailView):
+class ClientDetail(LoginRequiredMixin,DetailView):
   model = Client
 
-class ClientCreate(CreateView):
-  model = Client
-  fields = '__all__'
-
-class ClientUpdate(UpdateView):
+class ClientCreate(LoginRequiredMixin,CreateView):
   model = Client
   fields = '__all__'
 
-class ClientDelete(DeleteView):
+class ClientUpdate(LoginRequiredMixin,UpdateView):
+  model = Client
+  fields = '__all__'
+
+class ClientDelete(LoginRequiredMixin,DeleteView):
   model = Client
   success_url='/clients/'
 

@@ -105,12 +105,14 @@
         <tr><th>Date</th><th>Time</th><th>Quantity</th></tr>
       </thead>
       <tbody>
-        {% for order in stock.order_set.all %}
+        {% for order in order_pending %}
+        {% comment %} {% if order.order_pending %} {% endcomment %}
           <tr>
             <td>{{order.date}}</td>
             <td>{{order.time}}</td>
             <td>{{order.qty}}</td>
           </tr>
+          {% comment %} {% endif %} {% endcomment %}
         {% endfor %}
       </tbody>
     </table>
@@ -135,7 +137,8 @@
           <div class="client-container">
           
             <a href="{% url 'clients_detail' client.id %}">
-              <p>A {{ client.worth }} {{ client.name }}</p>
+              <p>Client Name: {{client.name}}</p>
+              <p>Net Worth: {{client.worth}}
             </a>
           </div>
         {% endfor %}

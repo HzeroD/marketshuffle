@@ -1,7 +1,9 @@
+import datetime
 from django.db import models
 from django.urls import reverse
-import datetime
+from datetime import date,time
 from django.utils import timezone
+from django.db.models import Q
 
 
 # Import the User
@@ -21,7 +23,8 @@ class Stock(models.Model):
     name = models.CharField(max_length=50)
     ticker = models.CharField(max_length=20)
     purchase_price = models.FloatField()
-    volume = models.FloatField()
+    qty = models.IntegerField(default=100)
+    market_cap = models.FloatField()
 
     clients = models.ManyToManyField(Client)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,3 +42,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f"{self.date} on {self.qty}"
+        
+    # def order_pending(self):
+    #     return Order.objects.filter(Q(date__gt=datetime.datetime.now().date()),
+    #     Q(time__gte=datetime.datetime.now().time()) | Q(date__gt=datetime.datetime.now().date())).order_by('-date')
