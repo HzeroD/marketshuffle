@@ -22,9 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Mukta', sans-serif;
   min-height: 100vh;
   --nav-bg: rgba(104, 197, 248, .7);
   --nav-bg-ff: rgba(104, 197, 248, .9);
@@ -33,8 +31,8 @@ body {
   --link-hover-color: rgb(16, 56, 158);
   --button-bg: rgb(245, 245, 245);
   --button-bg-hover: rgb(226, 226, 226);
-  --submit: rgb(26, 128, 0);
-  --warn: rgb(255, 102, 0);
+  --submit: rgb(23, 94, 5);
+  --warn: rgb(187, 79, 6);
   --danger: rgb(220, 20, 30);
   --secondary: rgb(57, 57, 57);
   --card-box-shadow: 5px 5px 6px -1px #AAA;
@@ -103,7 +101,7 @@ nav li {
 
 .btn {
   font-size: var(--font-l);
-  padding: 8px 16px;
+  padding: 10px 10px;
   border-radius: 1px;
   border-width: 2px;
   border-style: solid;

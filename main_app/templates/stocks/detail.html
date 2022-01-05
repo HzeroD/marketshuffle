@@ -56,22 +56,7 @@
       <a href="{% url 'stocks_update' stock.id %}" class="btn warn">Edit</a>
       <a href="{% url 'stocks_delete' stock.id %}" class="btn danger">Delete</a>
     </div>
-    {% comment %}
-    <h3>Change {{ stock.name }}'s photo</h3>
-    <p id="file-name"></p>
-    <form 
-      action="{% url 'add_photo' stock.id %}"
-      enctype="multipart/form-data"
-      method="POST"
-    >
-      {% csrf_token %}
-      <label class="btn secondary">
-        Choose photo
-        <input type="file" name="photo-file" id="file-input">
-      </label>
-      <button type="submit" class="btn submit">Upload Photo</button>
-    </form>
-    {% endcomment %}
+    
   </div>
 </section>
 
@@ -122,14 +107,7 @@
   </section>
   
   <section class="clients">
-    {%comment%}
-    <div class="subsection-title">
-      <h2>clients</h2>
-      <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
-      <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
-      <img src="{% static 'images/fish.svg' %}" alt="A fishy client" />
-    </div>
-    {%endcomment%}
+    
     <h3>{{ stock.name }}'s clients</h3>
     <div class="subsection-content">
       {% if stock.clients.count %}
@@ -156,7 +134,7 @@
             style=""
           ></div>
           <a href="{% url 'clients_detail' client.id %}">
-            <p>A {{ client.name }}</p>
+            <p>{{ client.name }}</p>
           </a>
           <form action="{% url 'assoc_client' stock.id client.id %}" method="post">
             {% csrf_token %}
