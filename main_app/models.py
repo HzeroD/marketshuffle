@@ -24,7 +24,7 @@ class Stock(models.Model):
     ticker = models.CharField(max_length=20)
     purchase_price = models.FloatField()
     qty = models.IntegerField(default=100)
-    market_cap = models.FloatField()
+    market_cap = models.CharField(max_length=20)
 
     clients = models.ManyToManyField(Client)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
