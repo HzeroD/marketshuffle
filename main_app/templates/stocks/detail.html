@@ -50,12 +50,12 @@
       <h2>Purchase Price: {{stock.purchase_price}}</h2>
 
       <h2>Volume: {{stock.volume}}
-    
-    
-    <div class="stock-actions">
       <a href="{% url 'stocks_update' stock.id %}" class="btn warn">Edit</a>
       <a href="{% url 'stocks_delete' stock.id %}" class="btn danger">Delete</a>
-    </div>
+    
+    {% comment %} <div class="stock-actions">
+      
+    </div> {% endcomment %}
     
   </div>
 </section>
@@ -74,12 +74,12 @@
       autocomplete='off'
     >
       {% csrf_token %}
+      <p>Date: {{order_form.date}}</p>
       
-      {{order_form.date}}
-
-      {{order_form.time}}
+      <p>Time: {{order_form.time}}</p>
     
-      {{order_form.qty}}
+      <p>Quantity: {{order_form.qty}}</p>
+
       <button type="submit" class='btn submit'>Add order</button>
     </form>
     

@@ -24,10 +24,10 @@ body {
   align-items: center;
   font-family: 'Mukta', sans-serif;
   min-height: 100vh;
-  --nav-bg: rgba(104, 197, 248, .7);
-  --nav-bg-ff: rgba(104, 197, 248, .9);
-  --borders: rgb(36, 116, 248) solid 0px;
-  --text-color: rgb(17, 20, 17);
+  --nav-bg: rgba(220, 20, 30, .7);
+  --nav-bg-ff: rgba(220, 20, 30, .9);
+  --borders: rgb(220, 20, 30) solid 0px;
+  --text-color: rgb(0,0,0);
   --link-hover-color: rgb(16, 56, 158);
   --button-bg: rgb(245, 245, 245);
   --button-bg-hover: rgb(226, 226, 226);
@@ -47,11 +47,13 @@ body {
 header {
   width: 100%;
   background: var(--nav-bg-ff);
-  border-bottom: var(--borders);
+  /* border-bottom: var(--borders); */
 }
 
 nav {
   margin: 10px;
+  color: white;
+
 }
 
 ul {
@@ -152,13 +154,13 @@ nav li {
 }
 
 @media only screen and (min-width: 768px) {
-  header {
+  /* header {
     position: sticky;
     display: flex;
     flex-direction: row;
     top: 0;
     align-items: center;
-  }
+  } */
 
   main {
     max-width: 1300px;
@@ -245,7 +247,7 @@ nav li {
     height: 35px;
   }
 
-  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  /* @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
     header {
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
@@ -257,5 +259,5 @@ nav li {
       -webkit-backdrop-filter: blur(3px);
       backdrop-filter: blur(3px);
     }
-  }
+  } */
 }
