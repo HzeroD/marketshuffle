@@ -25,6 +25,10 @@ Here's the Entity Relationship Diagram:
 <br />
 ![image](main_app/static/images/details.jpg)
 
+### Future Goals
+
+Implement the Polygon.io API
+
 
 ### Languages and Technologies Used
-Python, Django, PostgreSQL DTL, CSS
+Python, Django, PostgreSQL, DTL, CSS
